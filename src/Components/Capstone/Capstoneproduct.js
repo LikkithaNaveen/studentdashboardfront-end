@@ -68,6 +68,7 @@ const CapstoneProduct = () => {
             addcapstone.length>0 ? addcapstone.map((item,index)=>
             <ul key={item._id}>
                 <li>{index+1}</li>
+                <li>{item.id}</li>
                 <li>{item.name}</li>
                 <li>{item.capstonetitle}</li>
                 <li>{item.language}</li>

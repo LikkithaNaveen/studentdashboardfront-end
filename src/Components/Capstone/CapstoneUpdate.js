@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 
  const CapstoneUpdate = () => {
+    const[id,setId]=useState("")
     const[name,setName]=useState("")
     const[capstonetitle,setCapstonetitle]=useState("")
     const[language,setLanguage]=useState("")
@@ -23,6 +24,7 @@ import { useNavigate, useParams } from 'react-router-dom';
     });
       result=await result.json();
       console.warn(result)
+      setName(result.id)
       setName(result.name)
       setCapstonetitle(result.capstonetitle)
       setLanguage(result.language)
@@ -38,7 +40,7 @@ import { useNavigate, useParams } from 'react-router-dom';
       //console.log(name,course,language,taskdetails,assigndate,completedate,desc)
       let result=await fetch(`https://studentdashboard-new-2.onrender.com/capstone-details/${params.id}`,{
         method:"Put",
-        body:JSON.stringify({name,capstonetitle,language,status,desc}),
+        body:JSON.stringify({id,name,capstonetitle,language,status,desc}),
         headers:{
             'Content-Type':'application/json'
             //authorization:`Bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -55,6 +57,10 @@ import { useNavigate, useParams } from 'react-router-dom';
         <div className="container">
         <h1 class='headingtaskass'> Capstone Details </h1>
       <form  className="form">
+      <label class="taskadd">Student Id</label><br></br>
+        <input type="text" placeholder="ID" name="id"  class="taskinput"
+         value={id} onChange={(e)=>{setId(e.target.value)}} 
+         required />
         <label class="taskadd">Name</label><br></br>
         <input type="text" placeholder="Name" name="Name"  class="taskinput"
          value={name} onChange={(e)=>{setName(e.target.value)}} 

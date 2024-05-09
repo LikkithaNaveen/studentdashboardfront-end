@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Capstoneproduct from './Capstoneproduct'
 
 const AddCapstone = () => {
+  const[id,setId]=useState("")
     const[name,setName]=useState("")
     const[capstonetitle,setCapstonetitle]=useState("")
     const[language,setLanguage]=useState("")
@@ -14,7 +15,7 @@ const AddCapstone = () => {
     const addcapstonedetails=async()=>{
         console.warn(name,capstonetitle,language,status,desc)
 
-        if(!name|| !capstonetitle|| !language|| !status|| !desc)
+        if(!id||!name|| !capstonetitle|| !language|| !status|| !desc)
         {
             setError(true)
             return false;
@@ -23,7 +24,7 @@ const AddCapstone = () => {
         const userId=JSON.parse(localStorage.getItem('user'))._id
         let result=await fetch('https://studentdashboard-new-2.onrender.com/capstone-details',{
             method:"post",
-            body:JSON.stringify({name,capstonetitle,language,status,desc,userId}),
+            body:JSON.stringify({id,name,capstonetitle,language,status,desc,userId}),
             headers:{
                 'Content-Type':'application/json'
                 //authorization:`Bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -40,6 +41,12 @@ const AddCapstone = () => {
     <div className="container">
         <h1 class='headingtaskass'> Capstone Details </h1>
       <form  className="form">
+        <label class="taskadd">Student Id</label><br></br>
+        <input type="text" placeholder="ID" name="id"  class="taskinput"
+         value={id} onChange={(e)=>{setId(e.target.value)}} 
+         required />
+        {error && !id && <span class='invalid-input'>Enter valid name</span>}<br></br><br></br>
+
         <label class="taskadd">Name</label><br></br>
         <input type="text" placeholder="Name" name="Name"  class="taskinput"
          value={name} onChange={(e)=>{setName(e.target.value)}} 
